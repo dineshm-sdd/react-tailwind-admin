@@ -3,6 +3,7 @@ import {
     BarChart3,
     Users,
     Settings,
+    CardSimIcon,
     LayoutDashboard,
     Table as TableIcon,
     FileEdit,
@@ -65,6 +66,7 @@ const AdminLayout = () => {
         { icon: FileEdit, label: 'Forms', to: '/admin/forms' },
         { icon: Users, label: 'Users', to: '/admin/users' },
         { icon: BarChart3, label: 'Analytics', to: '/admin/analytics' },
+        { icon: CardSimIcon, label: 'Cards', to: '/admin/cards' },
         { icon: Settings, label: 'Settings', to: '/admin/settings' },
     ];
 
