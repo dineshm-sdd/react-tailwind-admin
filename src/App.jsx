@@ -6,6 +6,7 @@ import AdminLayout from './layouts/AdminLayout';
 import DashboardHome from './pages/admin/DashboardHome';
 import Listing from './pages/admin/Listing';
 import Forms from './pages/admin/Forms';
+import Cards from './pages/admin/Cards';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="forms" element={<Forms />} />
           <Route path="users" element={<Listing />} /> {/* Reusing listing for demo */}
           <Route path="analytics" element={<DashboardHome />} /> {/* Reusing for demo */}
+          <Route path="cards" element={<Cards />} />
           <Route path="settings" element={<Forms />} /> {/* Reusing for demo */}
         </Route>
 
