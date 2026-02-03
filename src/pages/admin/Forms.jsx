@@ -213,7 +213,7 @@ const Forms = () => {
                             rows={4}
                             value={formData.bio}
                             onChange={(e) => handleChange('bio', e.target.value)}
-                            className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-sm font-medium resize-none shadow-inner dark:text-slate-200 dark:placeholder:text-slate-600"
+                            className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-sm font-medium resize-none shadow-inner dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600"
                             placeholder="Write a few sentences about yourself..."
                         ></textarea>
                         <p className="text-xs font-medium text-slate-400 dark:text-slate-500">Brief description for your profile. URLs are allowed.</p>
