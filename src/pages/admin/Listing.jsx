@@ -37,8 +37,8 @@ const UserModal = ({ user, onClose }) => {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={onClose} />
-            <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="absolute inset-0 bg-slate-900/40 dark:bg-slate-950/60 backdrop-blur-sm" onClick={onClose} />
+            <div className="relative bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200 border border-transparent dark:border-slate-800">
                 <div className="h-32 bg-indigo-600 relative">
                     <button
                         onClick={onClose}
@@ -46,8 +46,8 @@ const UserModal = ({ user, onClose }) => {
                     >
                         <X className="h-5 w-5" />
                     </button>
-                    <div className="absolute -bottom-12 left-8 p-1 bg-white rounded-2xl shadow-xl">
-                        <div className="w-24 h-24 rounded-xl bg-slate-100 flex items-center justify-center text-3xl font-bold text-indigo-600 border border-slate-100 uppercase">
+                    <div className="absolute -bottom-12 left-8 p-1 bg-white dark:bg-slate-900 rounded-2xl shadow-xl">
+                        <div className="w-24 h-24 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-3xl font-bold text-indigo-600 dark:text-indigo-400 border border-slate-100 dark:border-slate-700 uppercase">
                             {user.name.split(' ').map(n => n[0]).join('')}
                         </div>
                     </div>
@@ -55,55 +55,55 @@ const UserModal = ({ user, onClose }) => {
 
                 <div className="pt-16 pb-8 px-8 space-y-6">
                     <div>
-                        <h2 className="text-2xl font-bold text-slate-900">{user.name}</h2>
-                        <p className="text-slate-500 font-medium">{user.role}</p>
+                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">{user.name}</h2>
+                        <p className="text-slate-500 dark:text-slate-400 font-medium">{user.role}</p>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
-                        <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                            <div className="flex items-center gap-2 text-slate-400 mb-1">
+                        <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700">
+                            <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500 mb-1">
                                 <Mail className="h-4 w-4" />
                                 <span className="text-xs font-bold uppercase tracking-wider">Email</span>
                             </div>
-                            <p className="text-sm font-bold text-slate-700 truncate">{user.email}</p>
+                            <p className="text-sm font-bold text-slate-700 dark:text-slate-300 truncate">{user.email}</p>
                         </div>
-                        <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                            <div className="flex items-center gap-2 text-slate-400 mb-1">
+                        <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700">
+                            <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500 mb-1">
                                 <Shield className="h-4 w-4" />
                                 <span className="text-xs font-bold uppercase tracking-wider">Status</span>
                             </div>
                             <span className={cn(
                                 "inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-bold",
-                                user.status === 'Active' ? "bg-emerald-100 text-emerald-700" :
-                                    user.status === 'Inactive' ? "bg-slate-200 text-slate-700" :
-                                        "bg-amber-100 text-amber-700"
+                                user.status === 'Active' ? "bg-emerald-100 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400" :
+                                    user.status === 'Inactive' ? "bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300" :
+                                        "bg-amber-100 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400"
                             )}>
                                 {user.status}
                             </span>
                         </div>
-                        <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                            <div className="flex items-center gap-2 text-slate-400 mb-1">
+                        <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700">
+                            <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500 mb-1">
                                 <Calendar className="h-4 w-4" />
                                 <span className="text-xs font-bold uppercase tracking-wider">Joined</span>
                             </div>
-                            <p className="text-sm font-bold text-slate-700">{user.joined}</p>
+                            <p className="text-sm font-bold text-slate-700 dark:text-slate-300">{user.joined}</p>
                         </div>
-                        <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                            <div className="flex items-center gap-2 text-slate-400 mb-1">
+                        <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700">
+                            <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500 mb-1">
                                 <Clock className="h-4 w-4" />
                                 <span className="text-xs font-bold uppercase tracking-wider">Last Activity</span>
                             </div>
-                            <p className="text-sm font-bold text-slate-700 italic">Just now</p>
+                            <p className="text-sm font-bold text-slate-700 dark:text-slate-300 italic">Just now</p>
                         </div>
                     </div>
 
                     <div className="flex gap-3 pt-4">
-                        <button className="flex-1 py-3 bg-indigo-600 text-white rounded-xl text-sm font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100">
+                        <button className="flex-1 py-3 bg-indigo-600 text-white rounded-xl text-sm font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 dark:shadow-none">
                             Edit Profile
                         </button>
                         <button
                             onClick={onClose}
-                            className="flex-1 py-3 bg-slate-100 text-slate-600 rounded-xl text-sm font-bold hover:bg-slate-200 transition-all"
+                            className="flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-xl text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
                         >
                             Close
                         </button>
@@ -128,44 +128,44 @@ const AddUserModal = ({ isOpen, onClose, onAdd }) => {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={onClose} />
-            <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
-                <div className="p-6 border-b border-slate-100 flex items-center justify-between">
-                    <h2 className="text-xl font-bold text-slate-900">Add New User</h2>
-                    <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-full transition-colors">
-                        <X className="h-5 w-5 text-slate-400" />
+            <div className="absolute inset-0 bg-slate-900/40 dark:bg-slate-950/60 backdrop-blur-sm" onClick={onClose} />
+            <div className="relative bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200 border border-transparent dark:border-slate-800">
+                <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                    <h2 className="text-xl font-bold text-slate-900 dark:text-white">Add New User</h2>
+                    <button onClick={onClose} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+                        <X className="h-5 w-5 text-slate-400 dark:text-slate-500" />
                     </button>
                 </div>
                 <form onSubmit={handleSubmit} className="p-6 space-y-4">
                     <div className="space-y-2">
-                        <label className="text-sm font-bold text-slate-700">Full Name</label>
+                        <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Full Name</label>
                         <input
                             required
                             type="text"
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-sm font-medium"
+                            className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-sm font-medium dark:text-slate-200"
                             placeholder="John Doe"
                         />
                     </div>
                     <div className="space-y-2">
-                        <label className="text-sm font-bold text-slate-700">Email Address</label>
+                        <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Email Address</label>
                         <input
                             required
                             type="email"
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-sm font-medium"
+                            className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-sm font-medium dark:text-slate-200"
                             placeholder="john@example.com"
                         />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
-                            <label className="text-sm font-bold text-slate-700">Role</label>
+                            <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Role</label>
                             <select
                                 value={formData.role}
                                 onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-sm font-medium appearance-none"
+                                className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-sm font-medium appearance-none dark:text-slate-200"
                             >
                                 <option>Admin</option>
                                 <option>Editor</option>
@@ -173,11 +173,11 @@ const AddUserModal = ({ isOpen, onClose, onAdd }) => {
                             </select>
                         </div>
                         <div className="space-y-2">
-                            <label className="text-sm font-bold text-slate-700">Status</label>
+                            <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Status</label>
                             <select
                                 value={formData.status}
                                 onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-sm font-medium appearance-none"
+                                className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-sm font-medium appearance-none dark:text-slate-200"
                             >
                                 <option>Active</option>
                                 <option>Inactive</option>
@@ -186,10 +186,10 @@ const AddUserModal = ({ isOpen, onClose, onAdd }) => {
                         </div>
                     </div>
                     <div className="pt-4 flex gap-3">
-                        <button type="button" onClick={onClose} className="flex-1 py-3 bg-slate-100 text-slate-600 rounded-xl text-sm font-bold hover:bg-slate-200 transition-all">
+                        <button type="button" onClick={onClose} className="flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-xl text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
                             Cancel
                         </button>
-                        <button type="submit" className="flex-1 py-3 bg-indigo-600 text-white rounded-xl text-sm font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100">
+                        <button type="submit" className="flex-1 py-3 bg-indigo-600 text-white rounded-xl text-sm font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 dark:shadow-none">
                             Create User
                         </button>
                     </div>
@@ -204,27 +204,27 @@ const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm, userName }) => {
 
     return (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={onClose} />
-            <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="absolute inset-0 bg-slate-900/40 dark:bg-slate-950/60 backdrop-blur-sm" onClick={onClose} />
+            <div className="relative bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200 border border-transparent dark:border-slate-800">
                 <div className="p-6 text-center">
-                    <div className="w-16 h-16 bg-rose-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <AlertTriangle className="h-8 w-8 text-rose-500" />
+                    <div className="w-16 h-16 bg-rose-50 dark:bg-rose-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <AlertTriangle className="h-8 w-8 text-rose-500 dark:text-rose-400" />
                     </div>
-                    <h2 className="text-xl font-bold text-slate-900 mb-2">Delete User?</h2>
-                    <p className="text-slate-500 text-sm font-medium px-4">
-                        Are you sure you want to delete <span className="font-bold text-slate-700">{userName}</span>? This action cannot be undone.
+                    <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Delete User?</h2>
+                    <p className="text-slate-500 dark:text-slate-400 text-sm font-medium px-4">
+                        Are you sure you want to delete <span className="font-bold text-slate-700 dark:text-slate-200">{userName}</span>? This action cannot be undone.
                     </p>
                 </div>
-                <div className="p-6 bg-slate-50 flex gap-3">
+                <div className="p-6 bg-slate-50 dark:bg-slate-800/50 flex gap-3">
                     <button
                         onClick={onClose}
-                        className="flex-1 py-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-bold hover:bg-slate-50 transition-all shadow-sm"
+                        className="flex-1 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 rounded-xl text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm"
                     >
                         Cancel
                     </button>
                     <button
                         onClick={onConfirm}
-                        className="flex-1 py-2.5 bg-rose-600 text-white rounded-xl text-sm font-bold hover:bg-rose-700 transition-all shadow-lg shadow-rose-100"
+                        className="flex-1 py-2.5 bg-rose-600 text-white rounded-xl text-sm font-bold hover:bg-rose-700 transition-all shadow-lg shadow-rose-100 dark:shadow-none"
                     >
                         Delete
                     </button>
@@ -242,6 +242,8 @@ const Listing = () => {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [roleFilter, setRoleFilter] = useState('All');
+    const [statusFilter, setStatusFilter] = useState('All');
+    const [showFilters, setShowFilters] = useState(false);
     const itemsPerPage = 6;
 
     const filteredUsers = useMemo(() => {
@@ -249,9 +251,10 @@ const Listing = () => {
             const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 user.email.toLowerCase().includes(searchTerm.toLowerCase());
             const matchesRole = roleFilter === 'All' || user.role === roleFilter;
-            return matchesSearch && matchesRole;
+            const matchesStatus = statusFilter === 'All' || user.status === statusFilter;
+            return matchesSearch && matchesRole && matchesStatus;
         });
-    }, [users, searchTerm, roleFilter]);
+    }, [users, searchTerm, roleFilter, statusFilter]);
 
     const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
     const paginatedUsers = filteredUsers.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -267,21 +270,34 @@ const Listing = () => {
         }
     };
 
+    const handleResetFilters = () => {
+        setSearchTerm('');
+        setRoleFilter('All');
+        setStatusFilter('All');
+        setCurrentPage(1);
+    };
+
+    const activeFiltersCount = [
+        roleFilter !== 'All',
+        statusFilter !== 'All',
+        searchTerm !== ''
+    ].filter(Boolean).length;
+
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 transition-colors">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-slate-900 mb-1">User Management</h1>
-                    <p className="text-slate-500 font-medium text-sm">Manage your team members and their account permissions.</p>
+                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">User Management</h1>
+                    <p className="text-slate-500 dark:text-slate-400 font-medium text-sm">Manage your team members and their account permissions.</p>
                 </div>
                 <div className="flex items-center gap-3">
-                    <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-700 hover:bg-slate-50 transition-all shadow-sm">
+                    <button className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm">
                         <Download className="h-4 w-4" />
                         Export
                     </button>
                     <button
                         onClick={() => setIsAddModalOpen(true)}
-                        className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 rounded-xl text-sm font-bold text-white hover:bg-indigo-700 shadow-lg shadow-indigo-100 transition-all"
+                        className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 rounded-xl text-sm font-bold text-white hover:bg-indigo-700 shadow-lg shadow-indigo-100 dark:shadow-none transition-all"
                     >
                         <Plus className="h-4 w-4" />
                         Add User
@@ -289,8 +305,8 @@ const Listing = () => {
                 </div>
             </div>
 
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm shadow-slate-200/50 overflow-hidden min-h-[500px] flex flex-col">
-                <div className="p-4 border-b border-slate-50 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-50/30">
+            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm shadow-slate-200/50 dark:shadow-none overflow-hidden min-h-[500px] flex flex-col transition-colors">
+                <div className="p-4 border-b border-slate-50 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-50/30 dark:bg-slate-800/20">
                     <div className="relative flex-1 max-w-md">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                         <input
@@ -298,14 +314,14 @@ const Listing = () => {
                             placeholder="Search by name or email..."
                             value={searchTerm}
                             onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
-                            className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-sm font-medium"
+                            className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-sm font-medium dark:text-slate-200"
                         />
                         {searchTerm && (
                             <button
                                 onClick={() => { setSearchTerm(''); setCurrentPage(1); }}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-slate-100 rounded-full transition-colors"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full transition-colors"
                             >
-                                <X className="h-3 w-3 text-slate-400" />
+                                <X className="h-3 w-3 text-slate-400 dark:text-slate-500" />
                             </button>
                         )}
                     </div>
@@ -313,77 +329,116 @@ const Listing = () => {
                         <select
                             value={roleFilter}
                             onChange={(e) => { setRoleFilter(e.target.value); setCurrentPage(1); }}
-                            className="px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all shadow-sm appearance-none min-w-[120px]"
+                            className="px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all shadow-sm appearance-none min-w-[120px] cursor-pointer"
                         >
                             <option value="All">All Roles</option>
                             <option value="Admin">Admin</option>
                             <option value="Editor">Editor</option>
                             <option value="Viewer">Viewer</option>
                         </select>
-                        <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all shadow-sm">
+                        <button
+                            onClick={() => setShowFilters(!showFilters)}
+                            className={cn(
+                                "flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm border",
+                                showFilters || activeFiltersCount > 0
+                                    ? "bg-indigo-50 dark:bg-indigo-900/20 border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400"
+                                    : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700"
+                            )}
+                        >
                             <Filter className="h-4 w-4" />
                             More Filters
+                            {activeFiltersCount > 0 && (
+                                <span className="flex items-center justify-center w-5 h-5 bg-indigo-600 text-white text-[10px] rounded-full ml-1">
+                                    {activeFiltersCount}
+                                </span>
+                            )}
                         </button>
                     </div>
                 </div>
 
+                {/* Advanced Filters Section */}
+                {showFilters && (
+                    <div className="p-4 bg-slate-50/50 dark:bg-slate-800/40 border-b border-slate-100 dark:border-slate-800 grid grid-cols-1 md:grid-cols-3 gap-4 animate-in slide-in-from-top-2 duration-200">
+                        <div className="space-y-2">
+                            <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider ml-1">Status Filter</label>
+                            <select
+                                value={statusFilter}
+                                onChange={(e) => { setStatusFilter(e.target.value); setCurrentPage(1); }}
+                                className="w-full px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all shadow-sm appearance-none cursor-pointer"
+                            >
+                                <option value="All">All Statuses</option>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                                <option value="Pending">Pending</option>
+                            </select>
+                        </div>
+                        <div className="flex items-end">
+                            <button
+                                onClick={handleResetFilters}
+                                className="flex items-center gap-2 px-4 py-2 text-sm font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-xl transition-all cursor-pointer"
+                            >
+                                <X className="h-4 w-4" />
+                                Reset All Filters
+                            </button>
+                        </div>
+                    </div>
+                )}
+
                 <div className="overflow-x-auto flex-1">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="bg-slate-50/50 border-b border-slate-100">
-                                <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">User</th>
-                                <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Role</th>
-                                <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Status</th>
-                                <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Joined</th>
-                                <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest text-right">Actions</th>
+                            <tr className="bg-slate-50/50 dark:bg-slate-800/20 border-b border-slate-100 dark:border-slate-800">
+                                <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">User</th>
+                                <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Role</th>
+                                <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Status</th>
+                                <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Joined</th>
+                                <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100">
+                        <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                             {paginatedUsers.length > 0 ? (
                                 paginatedUsers.map((user) => (
-                                    <tr key={user.id} className="hover:bg-slate-50/50 transition-colors group">
+                                    <tr key={user.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors group">
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-indigo-600 text-sm border border-slate-100 uppercase">
+                                                <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-indigo-600 dark:text-indigo-400 text-sm border border-slate-100 dark:border-slate-700 uppercase">
                                                     {user.name.split(' ').map(n => n[0]).join('')}
                                                 </div>
                                                 <div>
-                                                    <div className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors uppercase tracking-tight">{user.name}</div>
-                                                    <div className="text-xs font-medium text-slate-500">{user.email}</div>
+                                                    <div className="text-sm font-bold text-slate-900 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors uppercase tracking-tight">{user.name}</div>
+                                                    <div className="text-xs font-medium text-slate-500 dark:text-slate-500">{user.email}</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            <span className="text-sm text-slate-600 font-bold">{user.role}</span>
+                                            <span className="text-sm text-slate-600 dark:text-slate-400 font-bold">{user.role}</span>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <span className={cn(
                                                 "inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider",
-                                                user.status === 'Active' ? "bg-emerald-50 text-emerald-600" :
-                                                    user.status === 'Inactive' ? "bg-slate-100 text-slate-500" :
-                                                        "bg-amber-50 text-amber-600"
+                                                user.status === 'Active' ? "bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400" :
+                                                    user.status === 'Inactive' ? "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-500" :
+                                                        "bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400"
                                             )}>
                                                 {user.status}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 font-bold">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-500 font-bold">
                                             {user.joined}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-right">
                                             <div className="flex items-center justify-end gap-2">
                                                 <button
                                                     onClick={() => setSelectedUser(user)}
-                                                    className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all"
+                                                    className="p-2 text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-xl transition-all"
                                                     title="View Profile"
                                                 >
                                                     <Eye className="h-4 w-4" />
                                                 </button>
-                                                <button className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all" title="Edit User">
+                                                <button onClick={() => setEditUser(user)} className="p-2 text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-xl transition-all" title="Edit User">
                                                     <Edit2 className="h-4 w-4" />
                                                 </button>
-                                                <button
-                                                    onClick={() => setUserToDelete(user)}
-                                                    className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-all" title="Delete User">
+                                                <button onClick={() => setUserToDelete(user)} className="p-2 text-slate-400 dark:text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-xl transition-all" title="Delete User">
                                                     <Trash2 className="h-4 w-4" />
                                                 </button>
                                             </div>
@@ -394,8 +449,8 @@ const Listing = () => {
                                 <tr>
                                     <td colSpan="5" className="px-6 py-12 text-center">
                                         <div className="flex flex-col items-center gap-3">
-                                            <div className="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center">
-                                                <Search className="h-6 w-6 text-slate-300" />
+                                            <div className="w-12 h-12 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center">
+                                                <Search className="h-6 w-6 text-slate-300 dark:text-slate-600" />
                                             </div>
                                             <p className="text-sm font-bold text-slate-400 text-center">
                                                 No users found matching your criteria.
@@ -408,15 +463,15 @@ const Listing = () => {
                     </table>
                 </div>
 
-                <div className="p-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/10">
-                    <p className="text-sm text-slate-500 font-bold">
+                <div className="p-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/10 transition-colors">
+                    <p className="text-sm text-slate-500 dark:text-slate-500 font-bold">
                         Showing {Math.min(filteredUsers.length, (currentPage - 1) * itemsPerPage + 1)} to {Math.min(filteredUsers.length, currentPage * itemsPerPage)} of {filteredUsers.length} users
                     </p>
                     <div className="flex items-center gap-2">
                         <button
                             disabled={currentPage === 1}
                             onClick={() => setCurrentPage(prev => prev - 1)}
-                            className="p-2 text-slate-400 border border-slate-100 rounded-xl hover:bg-slate-50 disabled:opacity-50 transition-all shadow-sm"
+                            className="p-2 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50 transition-all shadow-sm"
                         >
                             <ChevronLeft className="h-4 w-4" />
                         </button>
@@ -427,8 +482,8 @@ const Listing = () => {
                                 className={cn(
                                     "h-9 w-9 flex items-center justify-center font-bold rounded-xl text-sm transition-all shadow-sm",
                                     currentPage === page
-                                        ? "bg-indigo-600 text-white shadow-lg shadow-indigo-100"
-                                        : "text-slate-600 border border-transparent hover:border-slate-100"
+                                        ? "bg-indigo-600 text-white shadow-lg shadow-indigo-100 dark:shadow-none"
+                                        : "text-slate-600 dark:text-slate-400 border border-transparent hover:border-slate-100 dark:hover:border-slate-700"
                                 )}
                             >
                                 {page}
@@ -437,7 +492,7 @@ const Listing = () => {
                         <button
                             disabled={currentPage === totalPages || totalPages === 0}
                             onClick={() => setCurrentPage(prev => prev + 1)}
-                            className="p-2 text-slate-400 border border-slate-100 rounded-xl hover:bg-slate-50 disabled:opacity-50 transition-all shadow-sm"
+                            className="p-2 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50 transition-all shadow-sm"
                         >
                             <ChevronRight className="h-4 w-4" />
                         </button>

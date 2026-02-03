@@ -39,21 +39,21 @@ const ForgotPassword = () => {
 
     if (isSent) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
+            <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-4 transition-colors duration-300">
                 <div className="w-full max-w-md">
-                    <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/60 p-8 border border-slate-100 text-center">
+                    <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl shadow-slate-200/60 dark:shadow-none p-8 border border-slate-100 dark:border-slate-800 text-center transition-colors">
                         <div className="flex justify-center mb-6">
-                            <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center">
+                            <div className="w-16 h-16 bg-emerald-50 dark:bg-emerald-900/20 rounded-full flex items-center justify-center">
                                 <CheckCircle2 className="h-10 w-10 text-emerald-500" />
                             </div>
                         </div>
-                        <h1 className="text-2xl font-bold text-slate-900 mb-2">Check your email</h1>
-                        <p className="text-slate-500 mb-8 font-medium">
-                            We've sent a password reset link to <span className="font-bold text-slate-700">{email}</span>
+                        <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Check your email</h1>
+                        <p className="text-slate-500 dark:text-slate-400 mb-8 font-medium">
+                            We've sent a password reset link to <span className="font-bold text-slate-700 dark:text-slate-200">{email}</span>
                         </p>
                         <Link
                             to="/"
-                            className="inline-flex items-center text-sm font-bold text-indigo-600 hover:text-indigo-500 transition-colors"
+                            className="inline-flex items-center text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 transition-colors"
                         >
                             <ArrowLeft className="h-4 w-4 mr-2" />
                             Back to Sign In
@@ -65,24 +65,24 @@ const ForgotPassword = () => {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
+        <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-4 transition-colors duration-300">
             <div className="w-full max-w-md">
-                <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/60 p-8 border border-slate-100">
+                <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl shadow-slate-200/60 dark:shadow-none p-8 border border-slate-100 dark:border-slate-800 transition-colors">
                     <div className="mb-8">
                         <Link
                             to="/"
-                            className="inline-flex items-center text-sm font-bold text-slate-500 hover:text-slate-700 transition-colors mb-6"
+                            className="inline-flex items-center text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors mb-6"
                         >
                             <ArrowLeft className="h-4 w-4 mr-2" />
                             Back
                         </Link>
-                        <h1 className="text-3xl font-bold text-slate-900 mb-2">Forgot Password?</h1>
-                        <p className="text-slate-500 font-medium">No worries, we'll send you reset instructions.</p>
+                        <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Forgot Password?</h1>
+                        <p className="text-slate-500 dark:text-slate-400 font-medium">No worries, we'll send you reset instructions.</p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="space-y-2">
-                            <label className="text-sm font-bold text-slate-700" htmlFor="email">
+                            <label className="text-sm font-bold text-slate-700 dark:text-slate-300" htmlFor="email">
                                 Email Address
                             </label>
                             <div className="relative">
@@ -97,8 +97,8 @@ const ForgotPassword = () => {
                                     className={cn(
                                         "block w-full pl-10 pr-3 py-2.5 border rounded-xl focus:ring-2 transition-all font-medium text-sm",
                                         error
-                                            ? "border-rose-300 focus:ring-rose-500/20 focus:border-rose-500 bg-rose-50/30"
-                                            : "border-slate-200 focus:ring-indigo-500/20 focus:border-indigo-500"
+                                            ? "border-rose-300 focus:ring-rose-500/20 focus:border-rose-500 bg-rose-50/30 dark:bg-rose-900/10"
+                                            : "border-slate-200 dark:border-slate-700 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white dark:bg-slate-800 dark:text-slate-200"
                                     )}
                                     placeholder="admin@example.com"
                                 />
@@ -109,7 +109,7 @@ const ForgotPassword = () => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg shadow-indigo-100 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg shadow-indigo-100 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all disabled:opacity-70 disabled:cursor-not-allowed dark:shadow-none dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
                         >
                             {isLoading ? (
                                 <Loader2 className="h-5 w-5 animate-spin" />

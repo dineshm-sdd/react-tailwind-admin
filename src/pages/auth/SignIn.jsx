@@ -50,17 +50,17 @@ const SignIn = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
+        <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-4 transition-colors duration-300">
             <div className="w-full max-w-md">
-                <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/60 p-8 border border-slate-100">
+                <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl shadow-slate-200/60 dark:shadow-none p-8 border border-slate-100 dark:border-slate-800 transition-colors">
                     <div className="text-center mb-8">
-                        <h1 className="text-3xl font-bold text-slate-900 mb-2">Welcome Back</h1>
-                        <p className="text-slate-500 font-medium">Please enter your details to sign in</p>
+                        <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Welcome Back</h1>
+                        <p className="text-slate-500 dark:text-slate-400 font-medium">Please enter your details to sign in</p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <div className="space-y-2">
-                            <label className="text-sm font-bold text-slate-700" htmlFor="email">
+                            <label className="text-sm font-bold text-slate-700 dark:text-slate-300" htmlFor="email">
                                 Email Address
                             </label>
                             <div className="relative">
@@ -75,8 +75,8 @@ const SignIn = () => {
                                     className={cn(
                                         "block w-full pl-10 pr-3 py-2.5 border rounded-xl focus:ring-2 transition-all font-medium text-sm",
                                         errors.email
-                                            ? "border-rose-300 focus:ring-rose-500/20 focus:border-rose-500 bg-rose-50/30"
-                                            : "border-slate-200 focus:ring-indigo-500/20 focus:border-indigo-500"
+                                            ? "border-rose-300 focus:ring-rose-500/20 focus:border-rose-500 bg-rose-50/30 dark:bg-rose-900/10"
+                                            : "border-slate-200 dark:border-slate-700 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white dark:bg-slate-800 dark:text-slate-200"
                                     )}
                                     placeholder="admin@example.com"
                                 />
@@ -86,7 +86,7 @@ const SignIn = () => {
 
                         <div className="space-y-2">
                             <div className="flex items-center justify-between">
-                                <label className="text-sm font-bold text-slate-700" htmlFor="password">
+                                <label className="text-sm font-bold text-slate-700 dark:text-slate-300" htmlFor="password">
                                     Password
                                 </label>
                                 <Link
@@ -108,8 +108,8 @@ const SignIn = () => {
                                     className={cn(
                                         "block w-full pl-10 pr-10 py-2.5 border rounded-xl focus:ring-2 transition-all font-medium text-sm",
                                         errors.password
-                                            ? "border-rose-300 focus:ring-rose-500/20 focus:border-rose-500 bg-rose-50/30"
-                                            : "border-slate-200 focus:ring-indigo-500/20 focus:border-indigo-500"
+                                            ? "border-rose-300 focus:ring-rose-500/20 focus:border-rose-500 bg-rose-50/30 dark:bg-rose-900/10"
+                                            : "border-slate-200 dark:border-slate-700 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white dark:bg-slate-800 dark:text-slate-200"
                                     )}
                                     placeholder="••••••••"
                                 />
@@ -133,9 +133,9 @@ const SignIn = () => {
                                 id="remember-me"
                                 name="remember-me"
                                 type="checkbox"
-                                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300 rounded cursor-pointer"
+                                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300 dark:border-slate-700 rounded cursor-pointer dark:bg-slate-800"
                             />
-                            <label htmlFor="remember-me" className="ml-2 block text-sm font-medium text-slate-600 cursor-pointer">
+                            <label htmlFor="remember-me" className="ml-2 block text-sm font-medium text-slate-600 dark:text-slate-400 cursor-pointer">
                                 Remember me
                             </label>
                         </div>
@@ -143,7 +143,7 @@ const SignIn = () => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg shadow-indigo-100 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg shadow-indigo-100 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all disabled:opacity-70 disabled:cursor-not-allowed dark:shadow-none dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
                         >
                             {isLoading ? (
                                 <Loader2 className="h-5 w-5 animate-spin" />

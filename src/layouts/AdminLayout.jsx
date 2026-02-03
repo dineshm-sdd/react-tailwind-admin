@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { Link, useLocation, Outlet, useNavigate } from 'react-router-dom';
 import { cn } from '../utils/cn';
+import ThemeToggle from '../components/ThemeToggle';
 
 
 const SidebarItem = ({ icon: Icon, label, to, active, isCollapsed }) => (
@@ -26,8 +27,8 @@ const SidebarItem = ({ icon: Icon, label, to, active, isCollapsed }) => (
         className={cn(
             "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group relative",
             active
-                ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200"
-                : "text-slate-500 hover:bg-slate-100 hover:text-slate-900",
+                ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200 dark:shadow-indigo-900/20"
+                : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-slate-200",
             isCollapsed && "justify-center px-0"
         )}
         title={isCollapsed ? label : ""}
@@ -71,27 +72,27 @@ const AdminLayout = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-slate-50 flex">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex transition-colors duration-300">
             {/* Sidebar Overlay for Mobile */}
             {isSidebarOpen && (
                 <div
-                    className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 lg:hidden"
+                    className="fixed inset-0 bg-slate-900/50 dark:bg-slate-950/70 backdrop-blur-sm z-30 lg:hidden"
                     onClick={() => setIsSidebarOpen(false)}
                 />
             )}
 
             {/* Sidebar */}
             <aside className={cn(
-                "fixed inset-y-0 left-0 z-40 bg-white border-r border-slate-100 transition-all duration-300 transform lg:relative lg:translate-x-0",
+                "fixed inset-y-0 left-0 z-40 bg-white dark:bg-slate-900 border-r border-slate-100 dark:border-slate-800 transition-all duration-300 transform lg:relative lg:translate-x-0",
                 isSidebarOpen ? "translate-x-0 w-64" : "-translate-x-full lg:translate-x-0",
                 isCollapsed ? "lg:w-20" : "lg:w-64"
             )}>
                 <div className="h-full flex flex-col p-4">
                     <div className="flex items-center gap-3 px-2 mb-8 h-10">
-                        <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200 shrink-0">
+                        <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200 dark:shadow-indigo-900/20 shrink-0">
                             <span className="text-white font-bold text-xl uppercase italic">TA</span>
                         </div>
-                        {!isCollapsed && <span className="text-xl font-bold text-slate-900 tracking-tight whitespace-nowrap overflow-hidden">Tailwind App</span>}
+                        {!isCollapsed && <span className="text-xl font-bold text-slate-900 dark:text-white tracking-tight whitespace-nowrap overflow-hidden">Tailwind App</span>}
                     </div>
 
                     <nav className="flex-1 space-y-1">
@@ -108,7 +109,7 @@ const AdminLayout = () => {
                     <div className="mt-auto pt-6 border-t border-slate-100 space-y-1">
                         <button
                             onClick={() => setIsCollapsed(!isCollapsed)}
-                            className="hidden lg:flex items-center gap-3 px-4 py-3 w-full rounded-xl text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition-all duration-200 group"
+                            className="hidden lg:flex items-center gap-3 px-4 py-3 w-full rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-slate-200 transition-all duration-200 group"
                         >
                             <Menu className="h-5 w-5 text-slate-400 group-hover:text-slate-600 shrink-0" />
                             {!isCollapsed && <span className="font-semibold text-left">Collapse</span>}
@@ -116,7 +117,7 @@ const AdminLayout = () => {
                         <button
                             onClick={() => navigate('/')}
                             className={cn(
-                                "flex items-center gap-3 px-4 py-3 w-full rounded-xl text-slate-500 hover:bg-rose-50 hover:text-rose-600 transition-all duration-200 group",
+                                "flex items-center gap-3 px-4 py-3 w-full rounded-xl text-slate-500 dark:text-slate-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 hover:text-rose-600 dark:hover:text-rose-400 transition-all duration-200 group",
                                 isCollapsed && "justify-center px-0"
                             )}
                         >
@@ -130,39 +131,40 @@ const AdminLayout = () => {
             {/* Main Content */}
             <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
                 {/* Navbar */}
-                <header className="h-16 bg-white border-b border-slate-100 flex items-center justify-between px-4 lg:px-8 z-20">
+                <header className="h-16 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between px-4 lg:px-8 z-20 transition-colors duration-300">
                     <div className="flex items-center gap-4">
                         <button
                             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                            className="p-2 text-slate-500 hover:bg-slate-100 rounded-lg transition-colors lg:hidden"
+                            className="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors lg:hidden"
                         >
                             <Menu className="h-6 w-6" />
                         </button>
                         <button
                             onClick={() => setIsCollapsed(!isCollapsed)}
-                            className="p-2 text-slate-500 hover:bg-slate-100 rounded-lg transition-colors hidden lg:block"
+                            className="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors hidden lg:block"
                         >
                             <Menu className="h-6 w-6" />
                         </button>
-                        <div className="flex-1 max-w-xl hidden md:block border-l border-slate-100 pl-4">
+                        <div className="flex-1 max-w-xl hidden md:block border-l border-slate-100 dark:border-slate-800 pl-4">
                             <div className="relative w-64">
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
                                 <input
                                     type="text"
                                     placeholder="Search anything..."
-                                    className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm"
+                                    className="w-full pl-10 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm dark:text-slate-200"
                                 />
                             </div>
                         </div>
                     </div>
 
                     <div className="flex items-center gap-2 lg:gap-4">
+                        <ThemeToggle />
                         <div className="relative">
                             <button
                                 onClick={() => { setIsNotifOpen(!isNotifOpen); setIsUserMenuOpen(false); }}
                                 className={cn(
-                                    "p-2 text-slate-500 hover:bg-slate-100 rounded-lg relative transition-colors",
-                                    isNotifOpen && "bg-slate-100 text-indigo-600"
+                                    "p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg relative transition-colors",
+                                    isNotifOpen && "bg-slate-100 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400"
                                 )}
                             >
                                 <Bell className="h-5 w-5" />
@@ -172,10 +174,10 @@ const AdminLayout = () => {
                             {isNotifOpen && (
                                 <>
                                     <div className="fixed inset-0 z-10" onClick={() => setIsNotifOpen(false)} />
-                                    <div className="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-slate-100 py-2 z-20 animate-in fade-in slide-in-from-top-5 duration-200">
-                                        <div className="px-4 py-2 border-b border-slate-50 flex items-center justify-between">
-                                            <h3 className="font-bold text-slate-900">Notifications</h3>
-                                            <button className="text-xs font-bold text-indigo-600 hover:text-indigo-700">Mark all as read</button>
+                                    <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-800 py-2 z-20 animate-in fade-in slide-in-from-top-5 duration-200">
+                                        <div className="px-4 py-2 border-b border-slate-50 dark:border-slate-800 flex items-center justify-between">
+                                            <h3 className="font-bold text-slate-900 dark:text-white">Notifications</h3>
+                                            <button className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300">Mark all as read</button>
                                         </div>
                                         <div className="max-h-[400px] overflow-y-auto">
                                             {notifications.map((notif) => (
@@ -199,29 +201,29 @@ const AdminLayout = () => {
                                                 </button>
                                             ))}
                                         </div>
-                                        <div className="px-4 py-2 border-t border-slate-50 text-center">
-                                            <button className="text-xs font-bold text-slate-500 hover:text-slate-700 transition-colors">See all notifications</button>
+                                        <div className="px-4 py-2 border-t border-slate-50 dark:border-slate-800 text-center">
+                                            <button className="text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors">See all notifications</button>
                                         </div>
                                     </div>
                                 </>
                             )}
                         </div>
 
-                        <div className="h-8 w-[1px] bg-slate-100 mx-2"></div>
+                        <div className="h-8 w-[1px] bg-slate-100 dark:bg-slate-800 mx-2"></div>
 
                         <div className="relative">
                             <button
                                 onClick={() => { setIsUserMenuOpen(!isUserMenuOpen); setIsNotifOpen(false); }}
                                 className={cn(
-                                    "flex items-center gap-3 pl-2 pr-1 py-1 hover:bg-slate-50 rounded-xl transition-colors",
-                                    isUserMenuOpen && "bg-slate-50"
+                                    "flex items-center gap-3 pl-2 pr-1 py-1 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-colors",
+                                    isUserMenuOpen && "bg-slate-50 dark:bg-slate-800"
                                 )}
                             >
                                 <div className="text-right hidden sm:block">
-                                    <p className="text-sm font-bold text-slate-900">Alex Johnson</p>
-                                    <p className="text-xs font-medium text-slate-500">Administrator</p>
+                                    <p className="text-sm font-bold text-slate-900 dark:text-white">Alex Johnson</p>
+                                    <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Administrator</p>
                                 </div>
-                                <div className="w-9 h-9 bg-slate-100 rounded-lg flex items-center justify-center border border-slate-200">
+                                <div className="w-9 h-9 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center border border-slate-200 dark:border-slate-700">
                                     <User className="h-5 w-5 text-slate-600" />
                                 </div>
                             </button>
@@ -229,26 +231,26 @@ const AdminLayout = () => {
                             {isUserMenuOpen && (
                                 <>
                                     <div className="fixed inset-0 z-10" onClick={() => setIsUserMenuOpen(false)} />
-                                    <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-slate-100 py-2 z-20 animate-in fade-in slide-in-from-top-5 duration-200">
-                                        <div className="px-4 py-2 border-b border-slate-50 mb-1 lg:hidden">
-                                            <p className="text-sm font-bold text-slate-900 line-clamp-1">Alex Johnson</p>
-                                            <p className="text-xs font-medium text-slate-500 truncate">alex@example.com</p>
+                                    <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-800 py-2 z-20 animate-in fade-in slide-in-from-top-5 duration-200">
+                                        <div className="px-4 py-2 border-b border-slate-50 dark:border-slate-800 mb-1 lg:hidden">
+                                            <p className="text-sm font-bold text-slate-900 dark:text-white line-clamp-1">Alex Johnson</p>
+                                            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 truncate">alex@example.com</p>
                                         </div>
                                         <div className="px-2 space-y-0.5">
-                                            <button className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-all">
+                                            <button className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all">
                                                 <User className="h-4 w-4" />
                                                 My Profile
                                             </button>
-                                            <button className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-all">
+                                            <button onClick={() => navigate('/admin/forms')} className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all">
                                                 <Settings className="h-4 w-4" />
                                                 Settings
                                             </button>
                                         </div>
-                                        <div className="h-[1px] bg-slate-100 my-2 mx-2"></div>
+                                        <div className="h-[1px] bg-slate-100 dark:bg-slate-800 my-2 mx-2"></div>
                                         <div className="px-2">
                                             <button
                                                 onClick={() => navigate('/')}
-                                                className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-bold text-rose-600 hover:bg-rose-50 transition-all"
+                                                className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-all"
                                             >
                                                 <LogOut className="h-4 w-4" />
                                                 Logout

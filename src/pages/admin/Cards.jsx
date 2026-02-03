@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CheckCircle } from "lucide-react";
+import ConfirmationModal from "../../components/ConfirmationModal";
 
 const cards = [
     {
@@ -30,19 +31,26 @@ const cards = [
 
 export default function Cards() {
     const [selectedPlan, setSelectedPlan] = useState(null);
+    const [planToConfirm, setPlanToConfirm] = useState(null);
 
     const handleChoose = (card) => {
-        setSelectedPlan(card.id);
-        alert(`You selected the ${card.title}`);
+        setPlanToConfirm(card);
+    };
+
+    const handleConfirmSelection = () => {
+        if (planToConfirm) {
+            setSelectedPlan(planToConfirm.id);
+            setPlanToConfirm(null);
+        }
     };
 
     return (
-        <div className="min-h-screen py-12 px-4 bg-slate-50">
+        <div className="py-12 px-4 transition-colors duration-300">
             <div className="mb-10 text-center">
-                <h1 className="text-3xl font-bold text-slate-900 mb-2">
+                <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
                     Our Pricing Plans
                 </h1>
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-slate-400">
                     Choose a plan that fits your needs
                 </p>
             </div>
@@ -54,7 +62,7 @@ export default function Cards() {
                     return (
                         <div
                             key={card.id}
-                            className={`bg-white rounded-2xl overflow-hidden shadow-md transform transition duration-300 hover:-translate-y-2 hover:shadow-xl border-2 ${isSelected ? "border-indigo-600" : "border-transparent"
+                            className={`bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-md transform transition duration-300 hover:-translate-y-2 hover:shadow-xl border-2 ${isSelected ? "border-green-600 dark:border-green-500" : "border-transparent"
                                 }`}
                         >
                             <img
@@ -65,18 +73,18 @@ export default function Cards() {
                             />
 
                             <div className="p-6">
-                                <h2 className="text-xl font-semibold mb-2">
+                                <h2 className="text-xl font-semibold mb-2 dark:text-white">
                                     {card.title}
                                 </h2>
-                                <p className="text-gray-600 mb-4">
+                                <p className="text-gray-600 dark:text-slate-400 mb-4">
                                     {card.description}
                                 </p>
 
                                 <ul className="mb-6 space-y-2">
                                     {card.features.map((feature, index) => (
                                         <li key={index} className="flex items-center gap-2">
-                                            <CheckCircle className="text-green-500 w-5 h-5" />
-                                            <span className="text-gray-700 text-sm">
+                                            <CheckCircle className="text-green-500 w-5 h-5 shrink-0" />
+                                            <span className="text-gray-700 dark:text-slate-300 text-sm">
                                                 {feature}
                                             </span>
                                         </li>
@@ -84,7 +92,7 @@ export default function Cards() {
                                 </ul>
 
                                 <div className="flex items-center justify-between">
-                                    <span className="text-lg font-bold text-indigo-600">
+                                    <span className={`text-lg font-bold ${isSelected ? "text-green-600 dark:text-green-400" : "text-indigo-600 dark:text-indigo-400"}`}>
                                         {card.price}
                                     </span>
 
@@ -103,6 +111,15 @@ export default function Cards() {
                     );
                 })}
             </div>
+
+            <ConfirmationModal
+                isOpen={!!planToConfirm}
+                onClose={() => setPlanToConfirm(null)}
+                onConfirm={handleConfirmSelection}
+                title="Confirm Selection"
+                message={`Are you sure you want to choose the ${planToConfirm?.title}?`}
+                confirmText="Confirm Plan"
+            />
         </div>
     );
 }
