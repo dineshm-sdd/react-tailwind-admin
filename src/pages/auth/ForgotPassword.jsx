@@ -109,7 +109,7 @@ const ForgotPassword = () => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg shadow-indigo-100 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg shadow-indigo-100 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all disabled:opacity-70 disabled:cursor-not-allowed dark:shadow-none dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
                         >
                             {isLoading ? (
                                 <Loader2 className="h-5 w-5 animate-spin" />
