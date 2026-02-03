@@ -14,7 +14,9 @@ import {
     Bell,
     Search,
     User,
-    Activity
+    Activity,
+    Layers,
+    Calendar as CalendarIcon
 } from 'lucide-react';
 import { Link, useLocation, Outlet, useNavigate } from 'react-router-dom';
 import { cn } from '../utils/cn';
@@ -63,12 +65,14 @@ const AdminLayout = () => {
 
     const menuItems = [
         { icon: LayoutDashboard, label: 'Dashboard', to: '/admin/dashboard' },
-        { icon: TableIcon, label: 'Listing', to: '/admin/listing' },
-        { icon: FileEdit, label: 'Forms', to: '/admin/forms' },
         { icon: Users, label: 'Users', to: '/admin/users' },
-        { icon: BarChart3, label: 'Analytics', to: '/admin/analytics' },
         { icon: CardSimIcon, label: 'Cards', to: '/admin/cards' },
+        { icon: Layers, label: 'Modals', to: '/admin/modals' },
+        { icon: CalendarIcon, label: 'Calendar', to: '/admin/calendar' },
         { icon: Settings, label: 'Settings', to: '/admin/settings' },
+        // { icon: TableIcon, label: 'Listing', to: '/admin/listing' },
+        // { icon: FileEdit, label: 'Forms', to: '/admin/forms' },
+        // { icon: BarChart3, label: 'Analytics', to: '/admin/analytics' },
     ];
 
     return (
