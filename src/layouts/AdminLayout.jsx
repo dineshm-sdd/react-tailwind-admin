@@ -16,7 +16,8 @@ import {
     User,
     Activity,
     Layers,
-    Calendar as CalendarIcon
+    Calendar as CalendarIcon,
+    Box
 } from 'lucide-react';
 import { Link, useLocation, Outlet, useNavigate } from 'react-router-dom';
 import { cn } from '../utils/cn';
@@ -69,8 +70,10 @@ const AdminLayout = () => {
         { icon: CardSimIcon, label: 'Cards', to: '/admin/cards' },
         { icon: Layers, label: 'Modals', to: '/admin/modals' },
         { icon: CalendarIcon, label: 'Calendar', to: '/admin/calendar' },
+        { icon: Box, label: 'Empty', to: '/admin/empty' },
+        { icon: TableIcon, label: 'Tabs', to: '/admin/tabs' },
         { icon: Settings, label: 'Settings', to: '/admin/settings' },
-        // { icon: TableIcon, label: 'Listing', to: '/admin/listing' },
+
         // { icon: FileEdit, label: 'Forms', to: '/admin/forms' },
         // { icon: BarChart3, label: 'Analytics', to: '/admin/analytics' },
     ];

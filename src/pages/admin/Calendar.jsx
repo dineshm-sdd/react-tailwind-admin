@@ -15,16 +15,17 @@ import { cn } from '../../utils/cn';
 const Calendar = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [view, setView] = useState('month'); // month, week, day
+    const [view, setView] = useState('month'); // day, week, month, year
     const [showEventModal, setShowEventModal] = useState(false);
 
-    // Sample events data
+    // Sample events data with times
     const events = [
-        { id: 1, title: 'Team Meeting', date: new Date(2026, 1, 5), time: '10:00 AM', type: 'meeting', color: 'indigo' },
-        { id: 2, title: 'Project Deadline', date: new Date(2026, 1, 8), time: '5:00 PM', type: 'deadline', color: 'rose' },
-        { id: 3, title: 'Client Call', date: new Date(2026, 1, 10), time: '2:00 PM', type: 'call', color: 'emerald' },
-        { id: 4, title: 'Workshop', date: new Date(2026, 1, 15), time: '9:00 AM', type: 'event', color: 'purple' },
-        { id: 5, title: 'Code Review', date: new Date(2026, 1, 3), time: '11:00 AM', type: 'meeting', color: 'blue' },
+        { id: 1, title: 'Team Meeting', date: new Date(2026, 1, 5), time: '10:00 AM', endTime: '11:00 AM', type: 'meeting', color: 'indigo' },
+        { id: 2, title: 'Project Deadline', date: new Date(2026, 1, 8), time: '5:00 PM', endTime: '6:00 PM', type: 'deadline', color: 'rose' },
+        { id: 3, title: 'Client Call', date: new Date(2026, 1, 10), time: '2:00 PM', endTime: '3:00 PM', type: 'call', color: 'emerald' },
+        { id: 4, title: 'Workshop', date: new Date(2026, 1, 15), time: '9:00 AM', endTime: '12:00 PM', type: 'event', color: 'purple' },
+        { id: 5, title: 'Code Review', date: new Date(2026, 1, 3), time: '11:00 AM', endTime: '12:00 PM', type: 'meeting', color: 'blue' },
+        { id: 6, title: 'Lunch Break', date: new Date(2026, 1, 3), time: '1:00 PM', endTime: '2:00 PM', type: 'event', color: 'amber' },
     ];
 
     const months = [
@@ -33,6 +34,7 @@ const Calendar = () => {
     ];
 
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const timeSlots = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`);
 
     const getDaysInMonth = (date) => {
         const year = date.getFullYear();
@@ -44,7 +46,6 @@ const Calendar = () => {
 
         const days = [];
 
-        // Previous month days
         const prevMonthLastDay = new Date(year, month, 0).getDate();
         for (let i = startingDayOfWeek - 1; i >= 0; i--) {
             days.push({
@@ -54,7 +55,6 @@ const Calendar = () => {
             });
         }
 
-        // Current month days
         for (let i = 1; i <= daysInMonth; i++) {
             days.push({
                 day: i,
@@ -63,8 +63,7 @@ const Calendar = () => {
             });
         }
 
-        // Next month days
-        const remainingDays = 42 - days.length; // 6 rows * 7 days
+        const remainingDays = 42 - days.length;
         for (let i = 1; i <= remainingDays; i++) {
             days.push({
                 day: i,
@@ -76,9 +75,30 @@ const Calendar = () => {
         return days;
     };
 
-    const navigateMonth = (direction) => {
+    const getWeekDays = (date) => {
+        const day = date.getDay();
+        const diff = date.getDate() - day;
+        const sunday = new Date(date);
+        sunday.setDate(diff);
+
+        return Array.from({ length: 7 }, (_, i) => {
+            const d = new Date(sunday);
+            d.setDate(sunday.getDate() + i);
+            return d;
+        });
+    };
+
+    const navigate = (direction) => {
         const newDate = new Date(currentDate);
-        newDate.setMonth(currentDate.getMonth() + direction);
+        if (view === 'day') {
+            newDate.setDate(currentDate.getDate() + direction);
+        } else if (view === 'week') {
+            newDate.setDate(currentDate.getDate() + (direction * 7));
+        } else if (view === 'month') {
+            newDate.setMonth(currentDate.getMonth() + direction);
+        } else if (view === 'year') {
+            newDate.setFullYear(currentDate.getFullYear() + direction);
+        }
         setCurrentDate(newDate);
     };
 
@@ -109,7 +129,231 @@ const Calendar = () => {
         setSelectedDate(today);
     };
 
-    const days = getDaysInMonth(currentDate);
+    const getViewTitle = () => {
+        if (view === 'day') {
+            return currentDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+        } else if (view === 'week') {
+            const weekDays = getWeekDays(currentDate);
+            return `${weekDays[0].toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${weekDays[6].toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+        } else if (view === 'month') {
+            return `${months[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+        } else {
+            return currentDate.getFullYear().toString();
+        }
+    };
+
+    // Day View Component
+    const DayView = () => {
+        const dayEvents = getEventsForDate(currentDate);
+
+        return (
+            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+                <div className="p-4 border-b border-slate-200 dark:border-slate-800">
+                    <h3 className="font-bold text-slate-900 dark:text-white">
+                        {currentDate.toLocaleDateString('en-US', { weekday: 'long' })}
+                    </h3>
+                </div>
+                <div className="max-h-[600px] overflow-y-auto">
+                    {timeSlots.map((time, index) => {
+                        const hour = parseInt(time.split(':')[0]);
+                        const timeEvents = dayEvents.filter(e => parseInt(e.time.split(':')[0]) === hour);
+
+                        return (
+                            <div key={time} className="flex border-b border-slate-100 dark:border-slate-800">
+                                <div className="w-20 p-3 text-xs font-medium text-slate-500 dark:text-slate-400 border-r border-slate-100 dark:border-slate-800">
+                                    {time}
+                                </div>
+                                <div className="flex-1 p-2 min-h-[60px] hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                    {timeEvents.map(event => (
+                                        <div
+                                            key={event.id}
+                                            className={cn(
+                                                "p-2 rounded-lg mb-1 border-l-4",
+                                                `border-${event.color}-500 bg-${event.color}-50 dark:bg-${event.color}-900/20`
+                                            )}
+                                        >
+                                            <p className="text-sm font-bold text-slate-900 dark:text-white">{event.title}</p>
+                                            <p className="text-xs text-slate-600 dark:text-slate-400">{event.time} - {event.endTime}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        );
+    };
+
+    // Week View Component
+    const WeekView = () => {
+        const weekDays = getWeekDays(currentDate);
+
+        return (
+            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+                <div className="grid grid-cols-8 border-b border-slate-200 dark:border-slate-800">
+                    <div className="p-3 border-r border-slate-200 dark:border-slate-800"></div>
+                    {weekDays.map((day, i) => (
+                        <div key={i} className="p-3 text-center border-r last:border-r-0 border-slate-200 dark:border-slate-800">
+                            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">{daysOfWeek[i]}</p>
+                            <p className={cn(
+                                "text-lg font-bold mt-1",
+                                isToday(day) ? "text-indigo-600 dark:text-indigo-400" : "text-slate-900 dark:text-white"
+                            )}>
+                                {day.getDate()}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+                <div className="max-h-[500px] overflow-y-auto">
+                    {timeSlots.map((time) => {
+                        const hour = parseInt(time.split(':')[0]);
+
+                        return (
+                            <div key={time} className="grid grid-cols-8 border-b border-slate-100 dark:border-slate-800">
+                                <div className="p-2 text-xs font-medium text-slate-500 dark:text-slate-400 border-r border-slate-100 dark:border-slate-800">
+                                    {time}
+                                </div>
+                                {weekDays.map((day, i) => {
+                                    const dayEvents = getEventsForDate(day).filter(e => parseInt(e.time.split(':')[0]) === hour);
+
+                                    return (
+                                        <div key={i} className="p-1 min-h-[50px] border-r last:border-r-0 border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                            {dayEvents.map(event => (
+                                                <div
+                                                    key={event.id}
+                                                    className={cn(
+                                                        "p-1 rounded text-xs mb-1",
+                                                        `bg-${event.color}-500 text-white`
+                                                    )}
+                                                >
+                                                    <p className="font-bold truncate">{event.title}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        );
+    };
+
+    // Month View Component
+    const MonthView = () => {
+        const days = getDaysInMonth(currentDate);
+
+        return (
+            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+                <div className="p-4">
+                    <div className="grid grid-cols-7 gap-2 mb-2">
+                        {daysOfWeek.map((day) => (
+                            <div key={day} className="text-center text-xs font-bold text-slate-500 dark:text-slate-400 uppercase py-2">
+                                {day}
+                            </div>
+                        ))}
+                    </div>
+                    <div className="grid grid-cols-7 gap-2">
+                        {days.map((dayInfo, index) => {
+                            const dayEvents = getEventsForDate(dayInfo.date);
+                            const isCurrentDay = isToday(dayInfo.date);
+                            const isSelectedDay = isSelected(dayInfo.date);
+
+                            return (
+                                <button
+                                    key={index}
+                                    onClick={() => setSelectedDate(dayInfo.date)}
+                                    className={cn(
+                                        "aspect-square p-2 rounded-xl transition-all relative group",
+                                        dayInfo.isCurrentMonth
+                                            ? "text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800"
+                                            : "text-slate-400 dark:text-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800/50",
+                                        isCurrentDay && "bg-indigo-50 dark:bg-indigo-900/20 font-bold",
+                                        isSelectedDay && "bg-indigo-600 text-white hover:bg-indigo-700 dark:hover:bg-indigo-700"
+                                    )}
+                                >
+                                    <span className="text-sm font-semibold">{dayInfo.day}</span>
+                                    {dayEvents.length > 0 && (
+                                        <div className="absolute bottom-1 left-1/2 -translate-x-1/2 flex gap-0.5">
+                                            {dayEvents.slice(0, 3).map((event, i) => (
+                                                <div
+                                                    key={i}
+                                                    className={cn(
+                                                        "w-1 h-1 rounded-full",
+                                                        isSelectedDay ? "bg-white" : `bg-${event.color}-500`
+                                                    )}
+                                                />
+                                            ))}
+                                        </div>
+                                    )}
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    // Year View Component
+    const YearView = () => {
+        const year = currentDate.getFullYear();
+
+        return (
+            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden p-6">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {months.map((month, monthIndex) => {
+                        const monthDate = new Date(year, monthIndex, 1);
+                        const monthDays = getDaysInMonth(monthDate);
+
+                        return (
+                            <div key={month} className="border border-slate-200 dark:border-slate-700 rounded-xl p-3">
+                                <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-2">{month}</h4>
+                                <div className="grid grid-cols-7 gap-1">
+                                    {daysOfWeek.map((day) => (
+                                        <div key={day} className="text-[10px] text-center text-slate-400 dark:text-slate-600">
+                                            {day[0]}
+                                        </div>
+                                    ))}
+                                    {monthDays.map((dayInfo, index) => {
+                                        const hasEvents = getEventsForDate(dayInfo.date).length > 0;
+                                        const isCurrentDay = isToday(dayInfo.date);
+
+                                        return (
+                                            <button
+                                                key={index}
+                                                onClick={() => {
+                                                    setSelectedDate(dayInfo.date);
+                                                    setCurrentDate(dayInfo.date);
+                                                    setView('day');
+                                                }}
+                                                className={cn(
+                                                    "aspect-square text-[10px] rounded transition-all relative",
+                                                    dayInfo.isCurrentMonth
+                                                        ? "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                                                        : "text-slate-300 dark:text-slate-700",
+                                                    isCurrentDay && "bg-indigo-600 text-white font-bold",
+                                                    hasEvents && !isCurrentDay && "font-bold"
+                                                )}
+                                            >
+                                                {dayInfo.day}
+                                                {hasEvents && !isCurrentDay && (
+                                                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0.5 h-0.5 bg-indigo-500 rounded-full" />
+                                                )}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        );
+    };
+
     const selectedDateEvents = getEventsForDate(selectedDate);
 
     return (
@@ -133,29 +377,48 @@ const Calendar = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Calendar Section */}
-                <div className="lg:col-span-2 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-                    {/* Calendar Header */}
-                    <div className="p-6 border-b border-slate-200 dark:border-slate-800">
-                        <div className="flex items-center justify-between mb-4">
+                <div className="lg:col-span-2 space-y-4">
+                    {/* Calendar Controls */}
+                    <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-4">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                             <h2 className="text-lg font-bold text-slate-900 dark:text-white">
-                                {months[currentDate.getMonth()]} {currentDate.getFullYear()}
+                                {getViewTitle()}
                             </h2>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 flex-wrap">
+                                {/* View Switcher */}
+                                <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+                                    {['day', 'week', 'month', 'year'].map((v) => (
+                                        <button
+                                            key={v}
+                                            onClick={() => setView(v)}
+                                            className={cn(
+                                                "px-3 py-1.5 text-xs font-bold rounded-md transition-all capitalize",
+                                                view === v
+                                                    ? "bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm"
+                                                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+                                            )}
+                                        >
+                                            {v}
+                                        </button>
+                                    ))}
+                                </div>
+
                                 <button
                                     onClick={goToToday}
                                     className="px-3 py-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg transition-all"
                                 >
                                     Today
                                 </button>
+
                                 <div className="flex items-center gap-1">
                                     <button
-                                        onClick={() => navigateMonth(-1)}
+                                        onClick={() => navigate(-1)}
                                         className="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all"
                                     >
                                         <ChevronLeft className="h-4 w-4" />
                                     </button>
                                     <button
-                                        onClick={() => navigateMonth(1)}
+                                        onClick={() => navigate(1)}
                                         className="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all"
                                     >
                                         <ChevronRight className="h-4 w-4" />
@@ -163,57 +426,13 @@ const Calendar = () => {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Days of Week */}
-                        <div className="grid grid-cols-7 gap-2">
-                            {daysOfWeek.map((day) => (
-                                <div key={day} className="text-center text-xs font-bold text-slate-500 dark:text-slate-400 uppercase py-2">
-                                    {day}
-                                </div>
-                            ))}
-                        </div>
                     </div>
 
-                    {/* Calendar Grid */}
-                    <div className="p-4">
-                        <div className="grid grid-cols-7 gap-2">
-                            {days.map((dayInfo, index) => {
-                                const dayEvents = getEventsForDate(dayInfo.date);
-                                const isCurrentDay = isToday(dayInfo.date);
-                                const isSelectedDay = isSelected(dayInfo.date);
-
-                                return (
-                                    <button
-                                        key={index}
-                                        onClick={() => setSelectedDate(dayInfo.date)}
-                                        className={cn(
-                                            "aspect-square p-2 rounded-xl transition-all relative group",
-                                            dayInfo.isCurrentMonth
-                                                ? "text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800"
-                                                : "text-slate-400 dark:text-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800/50",
-                                            isCurrentDay && "bg-indigo-50 dark:bg-indigo-900/20 font-bold",
-                                            isSelectedDay && "bg-indigo-600 text-white hover:bg-indigo-700 dark:hover:bg-indigo-700"
-                                        )}
-                                    >
-                                        <span className="text-sm font-semibold">{dayInfo.day}</span>
-                                        {dayEvents.length > 0 && (
-                                            <div className="absolute bottom-1 left-1/2 -translate-x-1/2 flex gap-0.5">
-                                                {dayEvents.slice(0, 3).map((event, i) => (
-                                                    <div
-                                                        key={i}
-                                                        className={cn(
-                                                            "w-1 h-1 rounded-full",
-                                                            isSelectedDay ? "bg-white" : `bg-${event.color}-500`
-                                                        )}
-                                                    />
-                                                ))}
-                                            </div>
-                                        )}
-                                    </button>
-                                );
-                            })}
-                        </div>
-                    </div>
+                    {/* Calendar View */}
+                    {view === 'day' && <DayView />}
+                    {view === 'week' && <WeekView />}
+                    {view === 'month' && <MonthView />}
+                    {view === 'year' && <YearView />}
                 </div>
 
                 {/* Events Sidebar */}
@@ -264,7 +483,7 @@ const Calendar = () => {
                                                     </p>
                                                     <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
                                                         <Clock className="h-3 w-3" />
-                                                        <span>{event.time}</span>
+                                                        <span>{event.time} - {event.endTime}</span>
                                                     </div>
                                                 </div>
                                             </div>
